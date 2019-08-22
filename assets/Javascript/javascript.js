@@ -1,6 +1,5 @@
 // create an empty array to contain button options
 var buttonOptionsArr = ["toys", "music", "cars","news","beach", "animals"];
-var apiKey = "CDx5tDHI18D6iz6dXOX3u0uKX00EsaSc"
 
 // function to display buttons on initial load
 function renderButtons() {
