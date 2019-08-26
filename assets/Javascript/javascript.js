@@ -1,5 +1,6 @@
 // create an empty array to contain button options
-var buttonOptionsArr = ["toys", "music", "cars","news","beach", "animals"];
+var buttonOptionsArr = ["toys", "music", "cars", "news", "beach", "animals"];
+var apiKey = "CDx5tDHI18D6iz6dXOX3u0uKX00EsaSc"
 
 // function to display buttons on initial load
 function renderButtons() {
@@ -26,7 +27,7 @@ function renderButtons() {
     $(".ButtonSection").on("click", function () {
         var x = $(this).data("name")
         console.log(x);
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + x + "&api_key="+apiKey+"&limit=10"
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=" + apiKey + "&limit=10"
         $.ajax({ url: queryURL, method: "GET" })
             .done(function (response) {
                 console.log(response)
@@ -35,13 +36,42 @@ function renderButtons() {
                     var p = $("<p>").text("Rating:" + response.data[i].rating);
                     var GIFimg = $("<img>");
                     GIFimg.attr("src", response.data[i].images.fixed_height.url);
+                    GIFimg.attr("data-state", "still");
+                    GIFimg.attr("data-still", response.data[i].images.fixed_height.url);
+                    GIFimg.attr("data-animate", response.data[i].images.fixed_height_still.url);
+                    GIFimg.addClass("GIFImageBlock")
                     imagesDiv.append(GIFimg);
                     imagesDiv.append(p);
-                    $("#imagesSection").append(imagesDiv)
+                    $("#imagesSection").append(imagesDiv);
+
+
                 }
             })
     })
+
 }
+
+// Review wk6 day 3 code 
+
+$(".GIFImageBlock").on("click", function () {
+    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+    var state = $(this).attr("data-state");
+    console.log(this.state)
+    console.log("buttonclicked")
+    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+    // Then, set the image's data-state to animate
+    // Else set src to the data-still value
+    if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+    } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+    }
+});
+
+
+
 
 
 // SW - Take the value from the search box and place it into the button array and display
@@ -62,8 +92,9 @@ $("#searchButton").on("click", function (event) {
 
     console.log(buttonOptionsArr)
 
-    
+
 });
+
 
 
 // Calling the renderButtons function at least once to display the initial list of GIFs
