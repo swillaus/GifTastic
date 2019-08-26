@@ -35,28 +35,26 @@ function renderButtons() {
                     var imagesDiv = $("<div>");
                     var p = $("<p>").text("Rating:" + response.data[i].rating);
                     var GIFimg = $("<img>");
+                    GIFimg.addClass("GIFImageBlock")
                     GIFimg.attr("src", response.data[i].images.fixed_height.url);
                     GIFimg.attr("data-state", "still");
                     GIFimg.attr("data-still", response.data[i].images.fixed_height.url);
                     GIFimg.attr("data-animate", response.data[i].images.fixed_height_still.url);
-                    GIFimg.addClass("GIFImageBlock")
                     imagesDiv.append(GIFimg);
+
                     imagesDiv.append(p);
                     $("#imagesSection").append(imagesDiv);
-
-
                 }
             })
     })
 
 }
 
-// Review wk6 day 3 code 
+// Add pause on image click 
 
-$(".GIFImageBlock").on("click", function () {
+$(document).on("click", ".GIFImageBlock", function () {
     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
     var state = $(this).attr("data-state");
-    console.log(this.state)
     console.log("buttonclicked")
     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
     // Then, set the image's data-state to animate
@@ -69,9 +67,6 @@ $(".GIFImageBlock").on("click", function () {
         $(this).attr("data-state", "still");
     }
 });
-
-
-
 
 
 // SW - Take the value from the search box and place it into the button array and display
