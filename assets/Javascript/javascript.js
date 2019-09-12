@@ -27,7 +27,7 @@ function renderButtons() {
     $(".ButtonSection").on("click", function () {
         var x = $(this).data("name")
         console.log(x);
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=" + apiKey + "&limit=10"
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=" + apiKey + "&limit=10"
         $.ajax({ url: queryURL, method: "GET" })
             .done(function (response) {
                 console.log(response)
